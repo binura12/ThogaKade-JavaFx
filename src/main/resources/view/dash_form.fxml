@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="78.0" stroke="BLACK" strokeType="INSIDE" width="280.0" />
+      <Label layoutX="48.0" layoutY="12.0" text="Dashboard" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="77.0" layoutY="164.0" onAction="#btnViewCustomersOnAction" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: black;" text="View Customers" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="77.0" layoutY="221.0" onAction="#btnViewItemsOnAction" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: black;" text="View Items" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="77.0" layoutY="275.0" onAction="#btnPlaceOrderOnAction" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: black;" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
