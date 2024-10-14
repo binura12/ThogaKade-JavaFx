@@ -18,14 +18,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import model.CarttTm;
-import model.Customer;
-import model.Items;
+import model.*;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlaceOrderForm implements Initializable {
@@ -55,7 +56,7 @@ public class PlaceOrderForm implements Initializable {
     private Label lblDate;
 
     @FXML
-    private Label lblOrderId;
+    private JFXTextField lblOrderId;
 
     @FXML
     private Label lblTime;
@@ -111,7 +112,16 @@ public class PlaceOrderForm implements Initializable {
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
+        String orderId = lblOrderId.getText();
+        LocalDate orderDate = LocalDate.now();
+        String customerId = cmbCustomerId.getValue();
 
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+
+        carttTms.forEach(obj->{
+            orderDetailList.add(new OrderDetail(orderId,obj.getItemCode(),obj.getQty(),0.0));
+        });
+        Order order = new Order(orderId, orderDate, customerId, orderDetailList);
     }
 
     @Override
