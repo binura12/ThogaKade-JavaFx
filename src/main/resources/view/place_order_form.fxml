@@ -81,5 +81,6 @@
          </font>
       </Label>
       <JFXTextField fx:id="lblOrderId" layoutX="196.0" layoutY="46.0" prefHeight="14.0" prefWidth="42.0" />
+      <JFXButton layoutX="445.0" layoutY="463.0" onAction="#btnCommitOnAction" text="Commit" />
    </children>
 </AnchorPane>

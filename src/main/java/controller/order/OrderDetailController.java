@@ -8,26 +8,24 @@ import java.util.List;
 
 public class OrderDetailController {
     public boolean addOrderDetail(List<OrderDetail> orderDetails) {
-        boolean isAdd = false;
         for (OrderDetail orderDetail : orderDetails) {
-            isAdd = addOrderDetail(orderDetail);
+            boolean isAdd =  addOrderDetail(orderDetail);
+            if(!isAdd){
+                return false;
+            }
         }
-        return isAdd;
+        return true;
     }
 
     public boolean addOrderDetail(OrderDetail orderDetails) {
         String sql = "insert into orderdetail values(?,?,?,?)";
         try {
-            Object execute = CrudUtil.execute(sql,
+            return CrudUtil.execute(sql,
                     orderDetails.getOrderId(),
                     orderDetails.getItemCode(),
                     orderDetails.getQty(),
                     orderDetails.getDiscount()
             );
-            if (execute != null) {
-                return true;
-            }
-            return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

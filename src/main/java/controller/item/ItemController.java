@@ -3,10 +3,12 @@ package controller.item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Items;
+import model.OrderDetail;
 import util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ItemController implements ItemService{
     private static ItemController instance;
@@ -106,5 +108,25 @@ public class ItemController implements ItemService{
             itemCodes.add(items.getItemCode());
         });
         return itemCodes;
+    }
+
+    @Override
+    public boolean updateStock(List<OrderDetail> orderDetailList) {
+        for (OrderDetail orderDetail: orderDetailList){
+            boolean updateStock =  updateStock(orderDetail);
+            if (!updateStock){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean updateStock(OrderDetail orderDetailList) {
+        String sql = "UPDATE item SET QtyOnHand = QtyOnHand-? WHERE ItemCode =?";
+        try {
+            return CrudUtil.execute(sql, orderDetailList.getQty(), orderDetailList.getItemCode());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import controller.customer.CustomerController;
 import controller.item.ItemController;
+import db.DBConnection;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,6 +22,8 @@ import javafx.util.Duration;
 import model.*;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -122,6 +125,11 @@ public class PlaceOrderForm implements Initializable {
             orderDetailList.add(new OrderDetail(orderId,obj.getItemCode(),obj.getQty(),0.0));
         });
         Order order = new Order(orderId, orderDate, customerId, orderDetailList);
+        try {
+            new OrderController().placeOrder(order);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -188,5 +196,14 @@ public class PlaceOrderForm implements Initializable {
             total+= cartTm.getTotal();
         }
         lblnetTotal.setText(String.valueOf(total));
+    }
+
+    public void btnCommitOnAction(ActionEvent actionEvent) {
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            connection.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
